@@ -1,1 +1,5 @@
 #local
+
+1.1
+
+Novas Funcionalidades
