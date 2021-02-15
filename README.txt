@@ -27,6 +27,9 @@ git reset --hard HEAD~1
 --Visualizando o Histórico de Commits
 git log
 
+--Ver todos os commits em linha
+git log --pretty=oneline   
+
 --Histórico de um ou mais arquivos
 git log -p meus-arquivos
 
