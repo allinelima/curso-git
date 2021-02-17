@@ -1,6 +1,3 @@
-# Colabore
-
-#local
 # GIT
 
 ## Estados
@@ -209,20 +206,6 @@ Os demais **pushes** não precisam dessa informação
 	git clone git@github.com:allinelima/treinamento_fundamentos.git
 	git clone git@github.com:allinelima/treinamento_fundamentos_colabore.git
 
-
-###  Alterar o diretório remoto
-
-	git remote set-url git@github.com:allinelima/treinamento_fundamentos.git
-	git remote set-url git@github.com:allinelima/treinamento_fundamentos_colabore.git
-	git remote set-url origin git@github.com:allinelima/treinamento_fundamentos.git
-
-###  Renomear o atual Repositório e adicionar um novo.
-
-git remote rename origin old-origin
-
-git remote add origin novaurl
-
-
 ##### Renomeando branches (Se você estiver em uma branch e quiser renomear outra, você deve passar primeiro o nome atual da branch que quer renomear)
 
 git branch -m novo-nome-da-branch
@@ -338,6 +321,4 @@ Fazendo o **rebase** entre um o branch teste0 e o master.
 
 
 ##### Criar arquivo na pasta
-echo "#local" >> README.txt 
-
-
+echo "#local" >> README.txt  
