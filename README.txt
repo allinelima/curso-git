@@ -1,82 +1,343 @@
+# Colabore
+
 #local
+# GIT
 
--- Iniciar o repositorio
-git init
+## Estados
 
--- Criar arquivo na pasta
-echo "#local" >> README.txt     
+* Modificado (modified);
+* Preparado (staged/index)
+* Consolidado (comitted);
 
--- Gravar todas as alterações
-git add .
 
--- Gravar alteração no arquivo
-git add README
-    
---Armazena o conteúdo atual em um novo commit
-git commit -m "Bug da funcao corrigido 2"
+## Configuração
 
---Armazena o conteúdo atual em um novo commit e adiciona as alterações
- git commit -a -m "Bug da funcao corrigido 3"   
+### Geral
 
---Refazendo commit quando esquecer de adicionar um arquivo
-git commit -m "Bug da funcao corrigido 3 (editado)" --amend
+As configurações do GIT são armazenadas no arquivo **.gitconfig** localizado dentro do diretório do usuário do Sistema Operacional (Ex.: Windows: C:\Users\Documents and Settings\Leonardo ou *nix /home/leonardo).
 
---Para voltar ao último commit
-git reset --hard HEAD~1
+As configurações realizadas através dos comandos abaixo serão incluídas no arquivo citado acima.
 
---Visualizando o Histórico de Commits
-git log
+##### Setar usuário
+	git config --global user.name "Aline Lima"
 
---Ver todos os commits em linha
-git log --pretty=oneline   
+##### Setar email
+	git config --global user.email allinelima@gmail.com
+	
 
---Histórico de um ou mais arquivos
-git log -p meus-arquivos
+##### Setar arquivos a serem ignorados
+	git config --global DS.store ~/.gitignore
 
---Para voltar ao último commit e mantém os últimos arquivos
-git reset --soft HEAD~1
+##### Listar configurações
+	git config --list
 
---Remover o arquivo do seu diretório
-git rm -f {arquivo}
 
--- Verificar status Listando Arquivos Modificados
-git status
+## Repositório Local
 
---Verificar Mudanças
-git diff
+### Criar novo repositório
 
---renomear um arquivo
-git mv arquivo_origem arquivo_destino
+	git init
 
--- Criar uma novo branch
-git branch teste
+### Verificar estado dos arquivos/diretórios
 
--- Para mudar para uma branch existente
-git checkout teste
+	git status
 
--- Para mudar de branch e criar 9 (adicionar -b, uma nova branch será criada.)
-git checkout -b {nome_da_branch}
+### Adicionar arquivo/diretório (staged area)
 
---Indo para outra branch
-git checkout minha-branch
+##### Adicionar um arquivo em específico
 
---Listando Branches
-git branch
+	git add meu_arquivo.txt
 
---Renomeando branches (Se você estiver em uma branch e quiser renomear outra, você deve passar primeiro o nome atual da branch que quer renomear)
+##### Adicionar um diretório em específico
+
+	git add meu_diretorio
+
+##### Adicionar todos os arquivos/diretórios
+	
+	git add .	
+	
+##### Adicionar um arquivo que esta listado no .gitignore (geral ou do repositório)
+	
+	git add -f arquivo_no_gitignore.txt
+	
+### Comitar arquivo/diretório
+
+##### Comitar um arquivo
+	
+	git commit funcao.php
+
+##### Comitar vários arquivos
+
+	git commit meu_arquivo.txt meu_outro_arquivo.txt
+	
+##### Comitar informando mensagem
+
+	git commit readme.txt -m "minha mensagem de commit"
+
+### Remover arquivo/diretório
+
+##### Remover arquivo
+
+	git rm readme.txt
+
+##### Remover diretório
+
+	git rm -r diretorio
+
+### Visualizar histórico
+
+##### Exibir histórico
+	
+	git log
+	
+##### Exibir histórico com diff das duas últimas alterações
+
+	git log -p -2
+	
+##### Exibir resumo do histórico (hash completa, autor, data, comentário e qtde de alterações (+/-))
+
+	git log --stat
+	
+##### Exibir informações resumidas em uma linha (hash completa e comentário)
+
+	git log --pretty=oneline
+	
+##### Exibir histórico com formatação específica (hash abreviada, autor, data e comentário)
+
+	git log --pretty=format:"%h - %an, %ar : %s"
+	
+* %h: Abreviação do hash;
+* %an: Nome do autor;
+* %ar: Data;
+* %s: Comentário.
+
+Verifique as demais opções de formatação no [Git Book](http://git-scm.com/book/en/Git-Basics-Viewing-the-Commit-History)
+
+##### Exibir histório de um arquivo específico
+
+	git log -- <caminho_do_arquivo>
+
+
+##### Exibir histórico modificação de um arquivo
+
+	git log --diff-filter=M -- <caminho_do_arquivo>
+
+* O <D> pode ser substituido por: Adicionado (A), Copiado (C), Apagado (D), Modificado (M), Renomeado (R), entre outros.
+
+##### Exibir histório de um determinado autor
+
+	git log --author=usuario
+
+
+### Desfazendo operações
+
+##### Desfazendo alteração local 
+
+	git checkout -- funcao.txt
+
+##### Desfazendo alteração local (staging area)
+
+	git reset HEAD funcao.txt
+
+Se o resultado abaixo for exibido, o comando reset *não* alterou o diretório de trabalho. 
+
+	Unstaged changes after reset:
+	M	funcao.txt
+
+A alteração do diretório pode ser realizada através do comando abaixo:
+	
+	git checkout meu_arquivo.txt
+
+## Repositório Remoto
+
+### Exibir os repositórios remotos
+
+	git remote
+	
+	git remote -v
+
+### Vincular repositório local com um repositório remoto
+
+	git remote add origin git@github.com:allinelima/treinamento_fundamentos.git
+	git remote add origin git@github.com:allinelima/treinamento_fundamentos_colabore.git
+	
+### Exibir informações dos repositórios remotos
+
+	git remote show origin
+	
+### Renomear um repositório remoto 
+
+	git remote rename origin curso-git
+	
+### Desvincular um repositório remoto
+	
+	git remote rm curso-git
+
+### Pegar dados dos projetos remotos
+	git fetch origin
+
+### Removendo arquivos do Stage
+	git reset
+
+### Desfazer o último commit
+	git revert HEAD
+
+
+### Enviar arquivos/diretórios para o repositório remoto
+
+O primeiro **push** de um repositório deve conter o nome do repositório remoto e o branch.
+
+	git push -u origin master
+	
+Os demais **pushes** não precisam dessa informação
+
+	git push
+	
+
+### Atualizar repositório local de acordo com o repositório remoto
+
+##### Atualizar os arquivos no branch atual
+
+	git pull
+	
+##### Buscar as alterações, mas não aplica-las no branch atual
+
+	git fetch
+	
+### Clonar um repositório remoto já existente
+
+	git clone git@github.com:allinelima/treinamento_fundamentos.git
+	git clone git@github.com:allinelima/treinamento_fundamentos_colabore.git
+
+
+###  Alterar o diretório remoto
+
+	git remote set-url git@github.com:allinelima/treinamento_fundamentos.git
+	git remote set-url git@github.com:allinelima/treinamento_fundamentos_colabore.git
+	git remote set-url origin git@github.com:allinelima/treinamento_fundamentos.git
+
+###  Renomear o atual Repositório e adicionar um novo.
+
+git remote rename origin old-origin
+
+git remote add origin novaurl
+
+
+##### Renomeando branches (Se você estiver em uma branch e quiser renomear outra, você deve passar primeiro o nome atual da branch que quer renomear)
 
 git branch -m novo-nome-da-branch
 
 git branch -m teste teste2
 
--- Pegar dados dos projetos remotos
-git fetch origin
+### Tags
 
---Removendo arquivos do Stage
-git reset
+##### Criando uma tag leve
 
---Desfazer o último commit
-git revert HEAD
+	git tag vs-1.1
 
--- Inspeção e Comparação
-git show
+##### Criando uma tag anotada
+
+	git tag -a vs-1.1 -m "Versão 1.1"
+
+
+##### Criando tag a partir de um commit (hash)
+
+	git tag -a vs-1.2 9fceb02
+	
+##### Criando tags no repositório remoto
+
+	git push origin vs-1.2
+	
+##### Criando todas as tags locais no repositório remoto
+
+	git push origin --tags
+	
+### Branches
+
+O **master** é o branch principal do GIT.
+
+O **HEAD** é um ponteiro *especial* que indica qual é o branch atual. Por padrão, o **HEAD** aponta para o branch principal, o **master**.
+
+##### Criando um novo branch
+
+	git branch teste
+	git branch teste1
+	
+##### Trocando para um branch existente
+
+	git checkout teste1
+	
+
+##### Criar um novo branch e trocar 
+
+	git checkout -b teste2
+	
+##### Voltar para o branch principal (master)
+
+	git checkout master
+	
+##### Resolver merge entre os branches
+
+	git merge teste1
+	
+Para realizar o *merge*, é necessário estar no branch que deverá receber as alterações. O *merge* pode automático ou manual. O merge automático será feito em arquivos textos que não sofreram alterações nas mesmas linhas, já o merge manual será feito em arquivos textos que sofreram alterações nas mesmas linhas.
+
+##### Apagando um branch
+
+	git branch -d teste
+
+##### Listar branches 
+
+###### Listar branches
+
+	git branch
+
+###### Listar branches com informações dos últimos commits
+
+	git branch -v
+
+###### Listar branches que já foram fundidos (merged) com o **master**
+
+	git branch --merged
+
+###### Listar branches que não foram fundidos (merged) com o **master**
+
+	git branch --no-merged
+
+##### Criando branches no repositório remoto
+
+###### Criando um branch remoto com o mesmo nome
+
+	git push origin teste
+
+###### Criando um branch remoto com nome diferente
+
+	git push origin teste3:new-branch
+
+##### Baixar um branch remoto para edição
+
+	git checkout -b teste0 origin/teste0
+
+
+##### Apagar branch remoto
+
+	git push origin:teste0
+
+### Rebasing
+
+Fazendo o **rebase** entre um o branch teste0 e o master.
+
+	git checkout experiment
+	
+	git rebase master
+	
+
+##### Alterando mensagens de commit
+
+	git commit --amend -m "Bug da funcao corrigido 3 (editado)"
+
+
+##### Criar arquivo na pasta
+echo "#local" >> README.txt 
+
+
